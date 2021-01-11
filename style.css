@@ -1,0 +1,111 @@
+body {
+    text-align: center;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+#calculator-body {
+    width: 90%;
+    max-width: 450px;
+    margin: 0 auto;
+    border : 1px solid rgb(107, 103, 124);
+    background-color:  rgb(107, 103, 124);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#display {
+    flex-basis: 96%;
+    margin: 13px 0;
+    padding: 0 8px;
+    background-color: rgb(241, 236, 228);
+    text-align: right;
+}
+
+#left-col {
+    flex-basis: 72%;
+}
+
+#right-col {
+   flex-basis: 22%;
+}
+
+#function {
+    display: flex;
+    justify-content: space-between;
+}
+
+#numbers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#display, #operators > div, #function > div, #numbers > div, #equal {
+    height: 50px;
+    line-height: 50px;
+    border: 1px solid rgb(107, 103, 124);
+}
+
+#function > div {
+    flex-basis: 49%;
+    background-color: rgb(241, 236, 228);
+}
+
+#operators > div, #equal {
+    margin: 0 0 13px;
+    background-color: rgb(6, 24, 66);
+    color: rgb(241, 236, 228);
+}
+
+#numbers > div {
+    flex-basis: 32%;
+    margin: 13px 0 0;
+    background-color: rgb(241, 236, 228);
+}
+
+#numbers > div#n-0 {
+    flex-basis: 66%;
+}
+
+div#n-9 {
+    order: -7;
+}
+div#n-8 {
+    order: -8;
+}
+div#n-7 {
+    order: -9;
+}
+div#n-6 {
+    order: -4;
+}
+div#n-5 {
+    order: -5;
+}
+div#n-4 {
+    order: -6;
+}
+div#n-3 {
+    order: -1;
+}
+div#n-2 {
+    order: -2;
+}
+div#n-1 {
+    order: -3;
+}
+div#n-0 {
+    order: 0;
+}
+
+div#delete {
+    background-color: rgb(136, 82, 2);
+}
+
+div#clear {
+    background-color: rgb(197, 135, 42);
+}
