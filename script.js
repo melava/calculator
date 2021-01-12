@@ -26,47 +26,56 @@ const decimalButtons = document.getElementById('decimal');
 
 
             /* General functions */
-// listening to clicks and display
-numbers.forEach(number => {
-    number.addEventListener('click', function(){
-        if (displayScreen.textContent === '' && this.textContent === '0' || displayScreen.textContent === '' && this.textContent === ',') {
-            return
-        } else if (displayScreen.textContent.includes(',') && this.textContent === ',') {
-            return
-        } else {
-            displayScreen.textContent += this.textContent;
-        }
-    })
-});
+// display numbers and operators
+function display(){
+    if (displayScreen.textContent === '' && this.textContent === '0' || displayScreen.textContent === '' && this.textContent === '.') {
+        // if begin with 0 or decimal, don't display it
+        return
+    } else if (displayScreen.textContent.includes('.') && this.textContent === '.') {
+        // if there is already a decimal, don't display more
+        return
+    } else if (displayScreen.textContent === 'ERROR') {
+        clear();
+        displayScreen.textContent += this.textContent;
+    } else {
+        displayScreen.textContent += this.textContent;
+    }
+}
+
 
 // clear
 function clear() {
     displayScreen.textContent = '';
     operation = '';
 };
-clearButton.addEventListener('click', clear);
+
 
 // delete
 function del() {
     if (displayScreen.textContent[displayScreen.textContent.length - 1] === " ") {
         displayScreen.textContent = displayScreen.textContent.slice(0, -3);
         operation = '';
+    } else if (displayScreen.textContent === 'ERROR') {
+        clear();
     } else {
         displayScreen.textContent = displayScreen.textContent.slice(0, -1);
     }
 }
-deleteButton.addEventListener('click', del);
+
 
         /* Math functions */
 // operate
 function operate() {
     if(!operation) {return}
     operands = displayScreen.textContent.split(` ${operation} `)
-    if(!operands[1]) {
+    firstOperand = Number(operands[0]);
+    secondOperand = Number(operands[1]);
+    
+    if(operation === '/' && secondOperand == 0) { 
+        displayScreen.textContent = 'ERROR';
+    } else if(!secondOperand) {
         return
     } else {
-        firstOperand = Number(operands[0]);
-        secondOperand = Number(operands[1]);
         if (operation === '+') {
             result = firstOperand + secondOperand;
         } else if (operation === '-') {
@@ -74,11 +83,7 @@ function operate() {
         } else if (operation === '*') {
             result = firstOperand * secondOperand;
         } else if (operation === '/') {
-            if (secondOperand === 0) {
-                result = 'ERROR';
-            } else {
-                result = firstOperand / secondOperand;
-            }
+            result = firstOperand / secondOperand;
         }
         displayScreen.textContent = result;
         operation = '';
@@ -87,12 +92,15 @@ function operate() {
     } 
 }
 
-equal.addEventListener('click', operate);
-
-
 // add
-addOperator.addEventListener('click', function() {
-    if (operation === '') {
+function add() {
+    if (displayScreen.textContent == undefined || displayScreen.textContent === '' || displayScreen.textContent === 'ERROR') {
+        return
+    } else if(displayScreen.textContent.includes('/ 0')) {
+        displayScreen.textContent = 'ERROR';
+    } else if(displayScreen.textContent.includes('+' || '-' || '*' || '/') && displayScreen.textContent[displayScreen.textContent.length - 1] === " ") {
+        return
+    } else if(operation === '') {
         operation = '+';
         displayScreen.textContent += ' + ';
     } else {
@@ -100,11 +108,18 @@ addOperator.addEventListener('click', function() {
         operation = '+';
         displayScreen.textContent += ' + ';
     }
-});
+}
+
 
 // substract
-substractOperator.addEventListener('click', function() {
-    if (operation === '') {
+function substract() {
+    if (displayScreen.textContent == undefined || displayScreen.textContent === '' || displayScreen.textContent === 'ERROR') {
+        return
+    } else if(displayScreen.textContent.includes('/ 0')) {
+        displayScreen.textContent = 'ERROR';
+    } else if(displayScreen.textContent.includes('+' || '-' || '*' || '/') && displayScreen.textContent[displayScreen.textContent.length - 1] === " ") {
+        return
+    } else if (operation === '') {
         operation = '-';
         displayScreen.textContent += ' - ';
     } else {
@@ -112,11 +127,17 @@ substractOperator.addEventListener('click', function() {
         operation = '-';
         displayScreen.textContent += ' - ';
     }
-})
+}
 
 // multiply
-multiplyOperator.addEventListener('click', function() {
-    if (operation === '') {
+function multiply() {
+    if (displayScreen.textContent == undefined || displayScreen.textContent === '' || displayScreen.textContent === 'ERROR') {
+        return
+    } else if(displayScreen.textContent.includes('/ 0')) {
+        displayScreen.textContent = 'ERROR';
+    } else if(displayScreen.textContent.includes('+' || '-' || '*' || '/') && displayScreen.textContent[displayScreen.textContent.length - 1] === " ") {
+        return
+    } else if (operation === '') {
         operation = '*';
         displayScreen.textContent += ' * ';
     } else {
@@ -124,11 +145,17 @@ multiplyOperator.addEventListener('click', function() {
         operation = '*';
         displayScreen.textContent += ' * ';
     }
-})
+}
 
 // divide
-divideOperator.addEventListener('click', function() {
-    if (operation === '') {
+function divide() {
+    if (displayScreen.textContent == undefined || displayScreen.textContent === '' || displayScreen.textContent === 'ERROR') {
+        return
+    } else if(displayScreen.textContent.includes('/ 0')) {
+        displayScreen.textContent = 'ERROR';
+    } else if(displayScreen.textContent.includes('+' || '-' || '*' || '/') && displayScreen.textContent[displayScreen.textContent.length - 1] === " ") {
+        return
+    } else if (operation === '') {
         operation = '/';
         displayScreen.textContent += ' / ';
     } else {
@@ -136,5 +163,16 @@ divideOperator.addEventListener('click', function() {
         operation = '/';
         displayScreen.textContent += ' / ';
     }
-})
+}
 
+
+        /* Event listeners */
+
+clearButton.addEventListener('click', clear);
+deleteButton.addEventListener('click', del);
+numbers.forEach(number => {number.addEventListener('click', display)});
+addOperator.addEventListener('click', add);
+substractOperator.addEventListener('click', substract);
+multiplyOperator.addEventListener('click', multiply);
+divideOperator.addEventListener('click', divide);
+equal.addEventListener('click', operate);
