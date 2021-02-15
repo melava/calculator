@@ -52,7 +52,6 @@ div {
 
 #function > div {
     flex-basis: 49%;
-    background-color: rgb(241, 236, 228);
 }
 
 #operators > div, #equal {
@@ -61,10 +60,18 @@ div {
     color: rgb(241, 236, 228);
 }
 
+#operators > div:hover, #equal:hover {
+    background-color: rgb(26, 48, 99);
+}
+
 #numbers > div {
     flex-basis: 32%;
     margin: 13px 0 0;
     background-color: rgb(241, 236, 228);
+}
+
+#numbers > div:hover {
+    background-color: rgb(204, 200, 194);
 }
 
 #numbers > div#n-0 {
@@ -106,6 +113,14 @@ div#delete {
     background-color: rgb(136, 82, 2);
 }
 
+div#delete:hover{
+    background-color: rgb(151, 99, 21);
+}
+
 div#clear {
     background-color: rgb(197, 135, 42);
+}
+
+div#clear:hover {
+    background-color: rgb(201, 147, 66);
 }
