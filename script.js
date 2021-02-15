@@ -120,16 +120,16 @@ function operate(firstOperand, operation, secondOperand) {
     } else {
         switch (operation) {
             case '+':
-                result = firstOperand + secondOperand;
+                result = Math.round((firstOperand + secondOperand) * 1000) / 1000;
                 break;
             case '-':
-                result = firstOperand - secondOperand;
+                result = Math.round((firstOperand - secondOperand) * 1000) / 1000;
                 break;
             case '*':
-                result = firstOperand * secondOperand;
+                result = Math.round((firstOperand * secondOperand) * 1000) / 1000;
                 break;
             case '/':
-                result = firstOperand / secondOperand;
+                result = Math.round((firstOperand / secondOperand) * 1000) / 1000;
                 break;
         }
     }
